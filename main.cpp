@@ -7,16 +7,16 @@ struct vertex{
   char name[80];
 };
 int main(){
-  bool arr[20][20];
+  int arr[20][20];
   vertex* graph[20];
   for(int a = 0; a < 20; a++){
     for(int b = 0; b < 20; b++){
-      arr[a][b] = false;
+      arr[a][b] = 0;
     }
   }
   int currentId = 0;
   char in[80];
-  int intin;
+  int intin = 0;
   
   cout << "graph creator. addvertex, addedge, removevertex, removeedge, findshortest, print" << endl;
   while(true){
@@ -44,7 +44,10 @@ int main(){
 	  cin.get();
 	  for(int a = 0; a < currentId; a++){
 	    if(strcmp(graph[a]->name, in)==0){
-	      arr[i][a] = true;
+	      cout << "weight of edge: " << endl;
+	      cin >> intin;
+	      cin.get();
+	      arr[i][a] = intin;
 	      added = true; 
 	    }
 	  }
@@ -88,7 +91,7 @@ int main(){
 	  cin.get();
 	  for(int a = 0; a < currentId; a++){
 	    if(strcmp(graph[a]->name, in)==0){
-	      arr[i][a] = false;
+	      arr[i][a] = 0;
 	      removed = true;
 	    }
 	  }
@@ -99,7 +102,7 @@ int main(){
       }
     }
     else if(strcmp(in, "findshortest")==0){
-
+      //djistrika algorithm
     }
     else if(strcmp(in, "print")==0){
       cout << "  ";
@@ -107,18 +110,12 @@ int main(){
 	cout << graph[i]->name << " ";
       }
       cout << endl;
-      
       for(int a = 0; a < currentId; a++){
 	for(int b = 0; b < currentId; b++){
 	  if(b == 0){
 	    cout << graph[a]->name << " ";
 	  }
-	  if(arr[a][b]){
-	    cout << "1 ";
-	  }
-	  else{
-	    cout << "0 ";
-	  }
+	  cout << arr[a][b] << " "; 
 	}
 	cout << endl;
       }
