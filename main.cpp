@@ -103,6 +103,28 @@ int main(){
     }
     else if(strcmp(in, "findshortest")==0){
       //djistrika algorithm
+      bool done = false;
+      cout << "name of first vertice: " << endl;
+      cin.get(in,80);
+      cin.get();
+      for(int i = 0; i < currentId; i++){
+	if(strcmp(graph[i]->name, in)==0){
+	  cout << "name of second vertice: " << endl;
+	  cin.clear();
+	  cin.get(in, 80);
+	  cin.get();
+	  for(int a = 0; a < currentId; a++){
+	    if(strcmp(graph[a]->name, in)==0){
+	      //call djstrika here
+	      dijkstra(arr, 0);
+	      done = true;
+	    }
+	  }
+	  if(done){
+	    break;
+	  }
+	}
+      }
     }
     else if(strcmp(in, "print")==0){
       cout << "  ";
@@ -124,4 +146,7 @@ int main(){
       cout << "invalid command" << endl;
     }
   }
+}
+void dijkstra(int arr[20][20], int num){
+ 
 }
