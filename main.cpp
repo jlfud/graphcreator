@@ -1,11 +1,13 @@
 #include <iostream>
 #include <cstring>
+#include <vector>
 
 
 using namespace std;
 struct vertex{
   char name[80];
 };
+void dijkstra(int index1, int index2, int arr[20][20], vertex* graph[20], int currentId);
 int main(){
   int arr[20][20];
   vertex* graph[20];
@@ -48,6 +50,7 @@ int main(){
 	      cin >> intin;
 	      cin.get();
 	      arr[i][a] = intin;
+	      arr[a][i] = intin;
 	      added = true; 
 	    }
 	  }
@@ -92,6 +95,7 @@ int main(){
 	  for(int a = 0; a < currentId; a++){
 	    if(strcmp(graph[a]->name, in)==0){
 	      arr[i][a] = 0;
+	      arr[a][i] = 0;
 	      removed = true;
 	    }
 	  }
@@ -116,7 +120,7 @@ int main(){
 	  for(int a = 0; a < currentId; a++){
 	    if(strcmp(graph[a]->name, in)==0){
 	      //call djstrika here
-	      dijkstra(arr, 0);
+	      dijkstra(i, a, arr, graph, currentId);
 	      done = true;
 	    }
 	  }
@@ -147,6 +151,52 @@ int main(){
     }
   }
 }
-void dijkstra(int arr[20][20], int num){
- 
+void dijkstra(int index1, int index2, int arr[20][20], vertex* graph[20], int currentId){
+  int distances[currentId]; 
+  bool visited[currentId];
+  vertex* previous[currentId];
+  
+  for(int i = 0; i < currentId; i++){
+    if(i == index1){
+      distances[i] = 0;
+      visited[i] = false;
+      previous[i] = NULL;
+    }
+    else if(graph[i] == NULL){
+      distances[i] = 1000000;
+      visited[i] = true; 
+    }
+    else{
+      distances[i] = 10000;
+      visited[i] = false;
+    }
+  }
+
+  while(true){
+    bool done = false; 
+    for(int i = 0; i < currentId; i++){
+      if(!visited[i]){
+	done = true;
+	break;
+      }
+    }
+    if(done){
+      break;
+    }
+    int current = 10000;
+    int index = 0;
+    for(int i = 0; i < currentId; i++){
+      if(arr[index][i] != 0){
+	if(current + arr[index][i] < distances[i]){
+	  distances[i] = current + arr[index][i];
+	  previous[i] = graph[index]; 
+	}
+      }
+    }
+    visited[index] = true;
+  }
+
+  cout << distances[index2] << endl;
+
+  
 }
